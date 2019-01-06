@@ -63,14 +63,20 @@ def main():
     
     
     secTime = 1000
-    speedRate = int(input("Input the number of frames you want: "))
-    """ Need to add here the speed rate checking to see if it is a number"""
+    # Speed rate is duration so change to file number
+#    speedRate = int(input("Input the number of frames you want: "))
+  #  """ Need to add here the speed rate checking to see if it is a number"""
 #    print(type(speedRate))
-    speedRate = float(speedRate)
+ #   speedRate = float(speedRate)
 #    print(type(speedRate))
+
+    ''' NEED TO MODIFY PAST THIS POINT '''
+
+    speedRate = duration
     ''' The Actual process of breaking up the MP4 '''
     con = 1 # Counter of the file
     fileNumb = 0 # The file Number
+    breakNumb = int(input("Input the number of frames you want: ")) # Number of frames
     print(speedRate)
     print(1/speedRate)
     while fileNumb < (con * secTime):
@@ -92,7 +98,7 @@ def main():
     for i in range(fileNumb):
         filename = outFold+ "/frame" + str(i) + ".jpg"
         images.append(imageio.imread(filename));
-    print(images)
+#    print(images)
     output_file = 'Gif-%s.gif' % datetime.datetime.now().strftime('%Y-%M-%d-%H-%M-%S')
     imageio.mimsave(output_file, images, duration=duration)
     print("Time to clean up")
