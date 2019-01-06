@@ -52,7 +52,7 @@ def main():
     print("Number of Frames: ", vidcap.get(CAP_PROP_FRAME_COUNT))
     print("Total Number of Frames: ", framecount * framerate)
     ''' Creating the output folder if it doesn't exist '''
-    outFold = 'data1' # Outputting folder
+    outFold = 'data6' # Outputting folder
     try:
         if not os.path.exists(outFold):
             os.makedirs(outFold)
@@ -94,7 +94,7 @@ def main():
     print("Welp, there we go. We are all done.")
     print("Continue with the rest of your day")
 
-
+main()
 
 
 
