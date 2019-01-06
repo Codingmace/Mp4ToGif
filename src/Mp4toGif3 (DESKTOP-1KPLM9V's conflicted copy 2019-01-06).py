@@ -21,11 +21,11 @@ def tinyComp(filepath):
 def main():
     ovfn = input("Enter in the file path:  ") # Original Video Filename
     vidcap = cv2.VideoCapture(ovfn);
-    '''
-    if not (Path(ovfn.exists())): # Check to see if the file exist
+    """
+    if not (os.path(ovfn).exists()): # Check to see if the file exist
         print("You nincompoop. That doesn't exist. Stupid you")
-        exit()
-    '''
+        exit();
+    """
     """ THIS PART DOESN"T WORK """
     if (not vidcap.read()): # Is it able to read the file
         print("Your a failure at life. That is not a readable file")
@@ -33,7 +33,7 @@ def main():
     # Inputting speed
     print("I need to collect some data about our new file")
     print("If you need any help just enter define and I will print some help")
-    initd = input("Do you want more than one frame per second ('Yes' or 'No'): ")
+    initd = input("Do you want more than a frame every second ('Yes' or 'No'): ")
     duration = 0
     if ("y" in initd): # If you want long videos
         print("Ok so that means its going to be long.")
@@ -41,8 +41,8 @@ def main():
     else: # If you want Speed up videos
         print("This is going to be a compression, Fun. I love these")
         duration = input("How many frames do you want in a second? ")
-        duration = 1.0 / int(duration)
-    duration = float(duration)
+     #   duration = 1.0 / int(duration)
+    duration = 1/ float(duration)
     print("Now we must consider the power of the software and Each Videos Properties")
     ''' Printing the properties of the video file '''
     framerate = vidcap.get(5)
@@ -63,14 +63,18 @@ def main():
     
     
     secTime = 1000
-    speedRate = input("Input the number of frames you want")
-    """ Need to add here  the speed rate checking to see if it is a number"""
-    print(type(speedRate))
+    speedRate = int(input("Input the number of frames you want: "))
+    """ Need to add here the speed rate checking to see if it is a number"""
+#    print(type(speedRate))
     speedRate = float(speedRate)
+#    print(type(speedRate))
     ''' The Actual process of breaking up the MP4 '''
     con = 0 # Counter of the file
     fileNumb = 0 # The file Number
+    print(speedRate)
+    print(1/speedRate)
     while fileNumb > (con * secTime):
+        print("CON" + str(con))
         vidcap.set(cv2.CAP_PROP_POS_MSEC, (secTime * con))
         if con > 200: # For the longer files cut off
             print("You trying to break this. I'm cutting you off")
@@ -84,6 +88,7 @@ def main():
         fileNumb += 1 # Next frame
     """ Creating the GIF with the obtained Files """
     images = []
+    print(fileNumb)
     for i in range(fileNumb):
         filename = outFold+ "/frame" + str(i) + ".jpg"
         images.append(imageio.imread(filename));
