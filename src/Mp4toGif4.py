@@ -7,7 +7,7 @@ import cv2
 import ffmpy
 import imageio
 import numpy as np
-
+import moviepy.editor as mp
 
 import tinify 
 tinify.key = "6QP9ymBx7CRyw6sWB1HFyBQC7Q9Z2jGQ" # Create API Key to compress images
@@ -141,5 +141,7 @@ def main():
     print("Welp, there we go. We are all done.")
     print("Continue with the rest of your day")
 
+#clip = mp.VideoFileClip("mygif.gif")
+#clip.write_videofile("myvideo.mp4")
 
 main()
