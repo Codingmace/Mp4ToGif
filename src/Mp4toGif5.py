@@ -20,17 +20,87 @@ def tinyComp(filepath):
     source = tinify.from_file(filepath)
     source.to_file(filepath)
 
+''' Number of Frames in a second '''
+def input_speed():
+    print("I need to collect some data about our new file")
+    print("If you need any help just enter define and I will print some help")
+    initd = input("Do you want to compress The File ('Yes' or 'No') ")
+    duration = 0
+    if ("n" in initd):  # If you want long videos
+        print("Ok so that means its going to be long.")
+        su = input("Are you sure about that??? ")
+        if("n" in su):
+            print("Thank the lord. That is really not what this is used for")
+            duration = input("How many frames do you want in a second? ")
+        else:
+            print("Fine be that way")
+            duration = input("You want a frame every how many seconds? ")
+    else:  # If you want Speed up videos
+        print("This is going to be a compression, Fun. I love these")
+        duration = input("How many frames do you want in a second? ")
+    return int(duration) # Return int for no problems
+
+def output_exist(outFold): # Make sure output folder exists
+    try:
+        if not os.path.exists(outFold):
+            os.makedirs(outFold)
+            print("It has been created. Your welcome")
+        else:
+            print("It already existed you silly")
+    except OSError:
+        print ('Error: Creating directory of data')
+        
+    return outfold
 
 def main():
-    secTime = 1000
-    ovfn = input("Enter in the file path:  ")  # Original Video Filename
-    vidcap = cv2.VideoCapture(ovfn)
-    """ THIS PART DOESN"T WORK """
-    print(vidcap.read()[0])  # Figured out that the first one is the boolean
-    if (not vidcap.read()[0]):  # Is it able to read the file
-        print("Your a failure at life. That is not a readable file")
-        exit()
+    secTime = 1000 # Number of MiliSeconds in Second
+    videoFiles = [] # Files need to go through
+    outFold = output_exist("data1") # The output folder
+    print("WELCOME TO MY MP4 TO GIF TO MP4 PROGRAM")
+    print("WE CAN DO MORE THAN ONE FILE IN SPECIFIC CASES \n")
+    numbFold = input("Are you doing a folder ('Yes' or 'No'): ")
+    if "n" in numbFold:
+        print("What a shame not using to full potential. Ok so be it")
+        videoFiles = input("Enter in the file path:  ")
+    else:
+        print("Yeah we get to have some fun")
+        vidfol = input("Input the folder name: ") # Folder of Videos
+        videoFiles = os.listdir(vidfol)
+#        print(str(videoFiles)[1:-1])
+    for ovfn in videoFiles:
+        filename, file_extension = os.path.splitext(ovfn)
+        if(os.path.isdir(ovfn)): # Is a directory
+            print("Well " + ovfn + " is a directory so I'll skip it")
+            break;
+        else: # is a file
+            vidcap = cv2.VideoCapture(ovfn)
+            if (not vidcap.read()[0]):  # Is it able to read the file
+                print("Your a failure at life. That is not a readable file")
+                print("Onward we go")
+                break
+        duration = 1 / input_speed()
+        print("Now it is time for some properties")
+        framerate = vidcap.get(5)
+        framecount = vidcap.get(7)
+        totFrame = framerate * framecount
+        secLength = framecount / framerate
+        print("Video Length (Seconds): ", secLength)
+        print("Frame Rate: ", framerate)
+        print("Frame Count: ", framecount)
+        print("Frame Height: ", vidcap.get(CAP_PROP_FRAME_HEIGHT))
+        print("Frame Width: ", vidcap.get(CAP_PROP_FRAME_WIDTH))
+        print("Number of Frames: ", vidcap.get(CAP_PROP_FRAME_COUNT))
+        print("Total Number of Frames: \n", totFrame)
+        print("Now I know videos can be long and only want 2 min of a 10 min video")
+        capSec = totFrame / secTime
+        print("Here is your chance. The video is " + str(capSec) + " seconds Long")
+        clipped = input("Do you want to make it shorter?\nEnter 'Yes' or 'No': ")
+        
     
+    
+    
+    
+    '''    
     # Inputting speed
     print("I need to collect some data about our new file")
     print("If you need any help just enter define and I will print some help")
@@ -42,10 +112,12 @@ def main():
     else:  # If you want Speed up videos
         print("This is going to be a compression, Fun. I love these")
         duration = input("How many frames do you want in a second? ")
-     #   duration = 1.0 / int(duration)
+    
     duration = 1 / int(duration)
     print("Now we must consider the power of the software and Each Videos Properties")
+    '''
     ''' Printing the properties of the video file '''
+    '''
     framerate = vidcap.get(5)
     framecount = vidcap.get(7)
     totFrame = framerate * framecount
@@ -57,18 +129,22 @@ def main():
     print("Frame Width: ", vidcap.get(CAP_PROP_FRAME_WIDTH))
     print("Number of Frames: ", vidcap.get(CAP_PROP_FRAME_COUNT))
     print("Total Number of Frames: ", totFrame)
+    '''
     ''' Creating the output folder if it doesn't exist '''
+    '''
     outFold = 'data1'  # Outputting folder
     try:
         if not os.path.exists(outFold):
             os.makedirs(outFold)
     except OSError:
         print ('Error: Creating directory of data')
-    
+    '''
+    '''
     print("Do you want to have it shorter than usual")
     print("Example A 10 min file that you only want 2 min of")
     clipped = input("Enter 'Yes' or 'No'")
     capSec = totFrame / secTime
+    '''
     if "y" in clipped:
         print("OK Clipping")
         print("Clipping")
@@ -118,7 +194,6 @@ def main():
         except OSError:
             print ('Error: Creating directory of data')
     
-    # output_file = 'Gif-%s.gif' % datetime.datetime.now().strftime('%Y-%M-%d-%H-%M-%S')
     imageio.mimsave(output_file, images, duration=duration)
     print("Time to clean up")
     print("Releasing all the lose ends")
@@ -135,8 +210,6 @@ def main():
     print("WARNING: THIS IS GOING TO TAKE UP A LOT OF SPACE")
     cleanRemove = input("Do you want to delete the folder of all the images.")
     os.removedirs(outFold)
-# clip = mp.VideoFileClip("mygif.gif")
-# clip.write_videofile("myvideo.mp4")
 
 
 
