@@ -40,6 +40,7 @@ def input_speed():
         duration = input("How many frames do you want in a second? ")
     return int(duration) # Return int for no problems
 
+''' Add a preference input for this one '''
 def output_exist(outFold): # Make sure output folder exists
     try:
         if not os.path.exists(outFold):
@@ -51,6 +52,7 @@ def output_exist(outFold): # Make sure output folder exists
         print ('Error: Creating directory of data')
         
     return outfold
+
 
 def main():
     secTime = 1000 # Number of MiliSeconds in Second
@@ -95,28 +97,54 @@ def main():
         capSec = totFrame / secTime
         print("Here is your chance. The video is " + str(capSec) + " seconds Long")
         clipped = input("Do you want to make it shorter?\nEnter 'Yes' or 'No': ")
+        if "y" in clipped:
+            print("Ok so shortening it. Good to hear")
+            newCapSec = input("How many Seconds long do you want it (up to "+ str(capSec) + " seconds")
+            if(newCapSec > capSec):
+                print("That doesn't work. Your trying to break my program. I'll Let you have one more try")
+                newCapSec = input("How many Seconds long do you want it (up to "+ str(capSec) + " seconds")
+                if(newCapSec > capSec):
+                    print("Well that didn't work so I guess it will not be shortened")
+                else:
+                    print("Good you came around and noticed your mistakes")
+                    capSec = newCapSec
+            else:
+                print("Now just let me enter your new shortened length")
+                capSec = newCapSec    
+        con = 1 # Seconds Counter of the file
+
+        smoothRate = 1 # Smoothness of the file
+        fileNumb = 0 # The File Number
+        while(con < capSec):
+            vidcap.set(cv2.CAP_PROP_MSEC, (secTime * smoothRate))
+            success, image = vidcap.read()
+            if success:
+                cv2.imwrite(outFold+ "/frame"+str(fileNumb) + ".jpg", image) # Save frame as JPG
+            else: # At the end of the file
+                break 
+            con+= 1
+            fileNumb += 1
+            
+            
+        """ Creating the GIF with the obtained Files """
+        images = []  # Files in the folder
+        print("Putting together " +str(fileNumb)+ " number of files")
+        for i in range(fileNumb):
+            filename = outFold + "/frame" + str(i) + ".jpg"
+            images.append(imageio.imread(filename));
+        output_file = filename + ".gif"
         
-    
-    
-    
-    
-    if "y" in clipped:
-        print("OK Clipping")
-        print("Clipping")
-        for i in range(10):
-            print("Clipping.........")
-        print("Plot Twist I can't do that right now")
-        print("Come back later when this will actually work")
-        exit()
-    else:
-        print("Awesome that makes it easier on me")
-        print("Well on we go")
-    
+        
+        
+        
+        
+        
+    '''
     # Editting this for speedrate
     con = 1  # Counter of the file
     fileNumb = 0  # The file Number
     while con < capSec:
-        print("CON " + str(con))
+     #   print("CON " + str(con))
         vidcap.set(cv2.CAP_PROP_POS_MSEC, (secTime * con))
         if con > 130:  # For the longer files cut off
             print("You trying to break this. I'm cutting you off")
@@ -128,13 +156,16 @@ def main():
             break
         con += 1
         fileNumb += 1  # Next frame
+        '''
     """ Creating the GIF with the obtained Files """
+    '''
     images = []  # Files in the folder
     print(fileNumb)
     for i in range(fileNumb):
         filename = outFold + "/frame" + str(i) + ".jpg"
         images.append(imageio.imread(filename));
     output_file = ovfn + ".gif"  # Lazy But Doesn't Work
+    '''
     fileWorks = False
     fileCount = 0
     
@@ -168,5 +199,8 @@ def main():
 
 
 
+''' This May not work '''
+def cleanup():
+    os.removedirs(outFold)
 
 main()
