@@ -26,7 +26,7 @@ def input_speed():
     print("If you need any help just enter define and I will print some help")
     initd = input("Do you want to compress The File ('Yes' or 'No') ")
     duration = 0
-    if ("n" in initd):  # If you want long videos
+    if ("n" in initd or "N" in initd):  # If you want long videos
         print("Ok so that means its going to be long.")
         su = input("Are you sure about that??? ")
         if("n" in su):
@@ -51,7 +51,7 @@ def output_exist(outFold): # Make sure output folder exists
     except OSError:
         print ('Error: Creating directory of data')
         
-    return outfold
+    return outFold
 
 
 def main():
@@ -60,17 +60,24 @@ def main():
     outFold = output_exist("data1") # The output folder
     print("WELCOME TO MY MP4 TO GIF TO MP4 PROGRAM")
     print("WE CAN DO MORE THAN ONE FILE IN SPECIFIC CASES \n")
-    numbFold = input("Are you doing a folder ('Yes' or 'No'): ")
-    if "n" in numbFold:
+#    numbFold = input("Are you doing a folder ('Yes' or 'No'): ")
+    numbFold = "No"
+    if "n" in numbFold or "N" in numbFold:
         print("What a shame not using to full potential. Ok so be it")
-        videoFiles = input("Enter in the file path:  ")
+        videoFiles.append(input("Enter in the file path:  "))
     else:
         print("Yeah we get to have some fun")
         vidfol = input("Input the folder name: ") # Folder of Videos
         videoFiles = os.listdir(vidfol)
-#        print(str(videoFiles)[1:-1])
     for ovfn in videoFiles:
+        ovfn = ovfn.strip("\"") # Takes care of parentheses
+        print("OVFN: " + ovfn)
+#        print(os.fspath(ovfn))
+#        print(os.path.realpath(ovfn))
+        #file_extension = os.path.splitext(ovfn)[1]
         filename, file_extension = os.path.splitext(ovfn)
+        print(os.path.basename(filename ))
+        print(filename + " "+ file_extension)
         if(os.path.isdir(ovfn)): # Is a directory
             print("Well " + ovfn + " is a directory so I'll skip it")
             break;
