@@ -133,72 +133,56 @@ def main():
             filename = outFold + "/frame" + str(i) + ".jpg"
             images.append(imageio.imread(filename));
         output_file = filename + ".gif"
+        ''' Checking to see that it is a valid File Number '''
+        fileWorks = False
+        fileCount = 0
+        while not fileWorks:
+            try:
+                if(os.path.exists(output_file)):
+                    output_file = filename + str(fileCount) + ".gif"
+                    fileCount += 1
+                else:
+                    fileWorks = True
+            except OSError:
+                print('Error when Creating the file name or something')
+
+        imageio.mimsave(output_file, images, duration=duration)
         
+        print("Now we have an option since the GIF is probably big")
+        conback = input("Would you like to convert back to a MP4 File? ")
+        if "y" in conback: # Convert to MP4
+            print("Ok I can convert the GIF to MP4\nJust give me a second")
+            clip = mp.VideoFileClip(output_file)
+            clip.write_videofile(filename + "_Lapse.MP4")
+        else:
+            print("OK. Was just trying to help out")
+        print("Time to clean up")
+        print("Releasing all the lose ends")
+        vidcap.release()
         
+        print("Destroying all the evidence. MWahhhahha")
+        cv2.destroyAllWindows()
         
-        
-        
-        
-    '''
-    # Editting this for speedrate
-    con = 1  # Counter of the file
-    fileNumb = 0  # The file Number
-    while con < capSec:
-     #   print("CON " + str(con))
-        vidcap.set(cv2.CAP_PROP_POS_MSEC, (secTime * con))
-        if con > 130:  # For the longer files cut off
-            print("You trying to break this. I'm cutting you off")
-            break
-        success, image = vidcap.read()
-        if success:
-            cv2.imwrite(outFold + "/frame" + str(fileNumb) + ".jpg", image)  # save frame as JPEG file
-        else:  # At the end of the file
-            break
-        con += 1
-        fileNumb += 1  # Next frame
-        '''
-    """ Creating the GIF with the obtained Files """
-    '''
-    images = []  # Files in the folder
-    print(fileNumb)
-    for i in range(fileNumb):
-        filename = outFold + "/frame" + str(i) + ".jpg"
-        images.append(imageio.imread(filename));
-    output_file = ovfn + ".gif"  # Lazy But Doesn't Work
-    '''
-    fileWorks = False
-    fileCount = 0
-    
-    ''' Check to see if file Exists '''
-    while not fileWorks:
-        try:
-            if os.path.exists(output_file):
-                output_file = ovfn + str(fileCount) + ".gif"
-                fileCount = fileCount + 1
+        print("WARNING: THIS IS GOING TO TAKE UP A LOT OF SPACE")
+        cleanRemove = input("Do you want to delete the folder of all the images.")
+        if "y" in cleanRemove:
+            print("Cleaning out the files")
+            os.removedirs(outFold)
+            print("They have been removed as requested")
+        else:
+            print("It helps on space. Please reconsider")
+            cleanRemove = input("Do you want to delete the folder of all the images.")
+            if "y" in cleanRemove:
+                print("The hard drive thanks you\nCleaning out the files")
+                os.removedirs(outFold)
+                print("They have been removed as requested")
             else:
-                fileWorks = True
-        except OSError:
-            print ('Error: Creating directory of data')
+                print("That is a shame. I was trying to save you space.")
     
-    imageio.mimsave(output_file, images, duration=duration)
-    print("Time to clean up")
-    print("Releasing all the lose ends")
-    vidcap.release()
-    print("Destroying all the evidence. MWahhhahha")
-    cv2.destroyAllWindows()
-    print("Welp, there we go. We are all done.")
-    print("Continue with the rest of your day")
+        print("Welp, there we go. We are all done.")
+        print("Continue with the rest of your day")
     
-    ''' Converting the file back to mp4 '''
-    clip = mp.VideoFileClip(output_file)
-    clip.write_videofile("testout.mp4")
-    
-    print("WARNING: THIS IS GOING TO TAKE UP A LOT OF SPACE")
-    cleanRemove = input("Do you want to delete the folder of all the images.")
-    os.removedirs(outFold)
-
-
-
+    print("Finally we are done")
 ''' This May not work '''
 def cleanup():
     os.removedirs(outFold)
