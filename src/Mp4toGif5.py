@@ -100,51 +100,6 @@ def main():
     
     
     
-    '''    
-    # Inputting speed
-    print("I need to collect some data about our new file")
-    print("If you need any help just enter define and I will print some help")
-    initd = input("Do you want to compress The File ('Yes' or 'No') ")
-    duration = 0
-    if ("n" in initd):  # If you want long videos
-        print("Ok so that means its going to be long.")
-        duration = input("You want a frame every how many seconds? ")
-    else:  # If you want Speed up videos
-        print("This is going to be a compression, Fun. I love these")
-        duration = input("How many frames do you want in a second? ")
-    
-    duration = 1 / int(duration)
-    print("Now we must consider the power of the software and Each Videos Properties")
-    '''
-    ''' Printing the properties of the video file '''
-    '''
-    framerate = vidcap.get(5)
-    framecount = vidcap.get(7)
-    totFrame = framerate * framecount
-    secLength = framecount / framerate
-    print("Video Length (Seconds): ", secLength)
-    print("Frame Rate: ", framerate)
-    print("Frame Count: ", framecount)
-    print("Frame Height: ", vidcap.get(CAP_PROP_FRAME_HEIGHT))
-    print("Frame Width: ", vidcap.get(CAP_PROP_FRAME_WIDTH))
-    print("Number of Frames: ", vidcap.get(CAP_PROP_FRAME_COUNT))
-    print("Total Number of Frames: ", totFrame)
-    '''
-    ''' Creating the output folder if it doesn't exist '''
-    '''
-    outFold = 'data1'  # Outputting folder
-    try:
-        if not os.path.exists(outFold):
-            os.makedirs(outFold)
-    except OSError:
-        print ('Error: Creating directory of data')
-    '''
-    '''
-    print("Do you want to have it shorter than usual")
-    print("Example A 10 min file that you only want 2 min of")
-    clipped = input("Enter 'Yes' or 'No'")
-    capSec = totFrame / secTime
-    '''
     if "y" in clipped:
         print("OK Clipping")
         print("Clipping")
