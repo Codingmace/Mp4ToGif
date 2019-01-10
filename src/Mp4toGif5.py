@@ -30,6 +30,7 @@ def main():
     if (not vidcap.read()[0]):  # Is it able to read the file
         print("Your a failure at life. That is not a readable file")
         exit()
+    
     # Inputting speed
     print("I need to collect some data about our new file")
     print("If you need any help just enter define and I will print some help")
@@ -136,6 +137,8 @@ def main():
     os.removedirs(outFold)
 # clip = mp.VideoFileClip("mygif.gif")
 # clip.write_videofile("myvideo.mp4")
+
+
 
 
 main()
