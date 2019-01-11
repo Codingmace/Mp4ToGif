@@ -18,8 +18,8 @@ def check(a):  # Checks to see if it is Yes or No
 def input_speed():
     print("I need to collect some data about our new file")
     print("If you need any help just enter define and I will print some help")
-#    initd = input("Do you want to compress The File ('Yes' or 'No') ")
-    initd = "Yes"
+    initd = input("Do you want to compress The File ('Yes' or 'No') ")
+#    initd = "Yes"
     duration = 0
     if not check(initd):  # If you want long videos
         print("Ok so that means its going to be long.")
@@ -32,8 +32,8 @@ def input_speed():
             duration = input("You want a frame every how many seconds? ")
     else:  # If you want Speed up videos
         print("This is going to be a compression, Fun. I love these")
-#        duration = input("How many frames do you want in a second? ")
-        duration = 4
+        duration = input("How many frames do you want in a second? ")
+#        duration = 4
     return int(duration)  # Return int for no problems
 
 
@@ -49,7 +49,6 @@ def output_exist(outFold):  # Make sure output folder exists
             print("It already existed you silly")
     except OSError:
         print ('Error: Creating directory of data')
-        
     return outFold
 
 
@@ -59,8 +58,8 @@ def main():
     outFold = output_exist("data1")  # The output folder
     print("WELCOME TO MY MP4 TO GIF TO MP4 PROGRAM")
     print("WE CAN DO MORE THAN ONE FILE IN SPECIFIC CASES \n")
-#    numbFold = input("Are you doing a folder ('Yes' or 'No'): ")
-    numbFold = "No"
+    numbFold = input("Are you doing a folder ('Yes' or 'No'): ")
+#    numbFold = "No"
     if check(numbFold):
         print("Yeah we get to have some fun")
         vidfol = input("Input the folder name: ")  # Folder of Videos
@@ -94,13 +93,12 @@ def main():
         print("Frame Height: ", vidcap.get(CAP_PROP_FRAME_HEIGHT))
         print("Frame Width: ", vidcap.get(CAP_PROP_FRAME_WIDTH))
         print("Number of Frames: ", vidcap.get(CAP_PROP_FRAME_COUNT))
-        print("Total Number of Frames: \n", totFrame)
+        print("Total Number of Frames: ", totFrame)
         print("Now I know videos can be long and only want 2 min of a 10 min video")
-#        capSec = totFrame / secTime
         capSec = secLength
         print("Here is your chance. The video is " + str(capSec) + " seconds Long")
-#        clipped = input("Do you want to make it shorter?\nEnter 'Yes' or 'No': ")
-        clipped = "No"
+        clipped = input("Do you want to make it shorter?\nEnter 'Yes' or 'No': ")
+#        clipped = "No"
         if check(clipped):
             print("Ok so shortening it. Good to hear")
             newCapSec = input("How many Seconds long do you want it (up to " + str(capSec) + " seconds")
@@ -116,17 +114,23 @@ def main():
                 print("Now just let me enter your new shortened length")
                 capSec = newCapSec    
         con = 1  # Seconds Counter of the file
+        smo = input("There are some benifits of this program.\nQuestion is would you like the file smoother")
         smoothRate = 1  # Smoothness of the file
+        if check(smo):
+            print("That is great. Number must be greater than one (I'm not checking)")
+            smoothRate = input("How much smoother?")
+        else:
+            print("You have a lot of faith in a second but have it your way.")
         fileNumb = 0  # The File Number
         while(con < capSec):
-            print(str(capSec) + " "+ str(con))
+#            print(str(capSec) + " "+ str(con))
             vidcap.set(cv2.CAP_PROP_POS_MSEC, (secTime * con))
             success, image = vidcap.read()
             if success:
                 cv2.imwrite(outFold + "/frame" + str(fileNumb) + ".jpg", image)  # Save frame as JPG
             else:  # At the end of the file
                 break 
-            con += 1
+            con += 1 / smoothRate
             fileNumb += 1
             
         """ Creating the GIF with the obtained Files """
@@ -171,7 +175,6 @@ def main():
         if check(cleanRemove):
             print("Cleaning out the files")
             shutil.rmtree(outFold)
-#            os.removedirs(outFold) #Doesn't work
             print("They have been removed as requested")
         else:
             print("It helps on space. Please reconsider")
@@ -187,10 +190,6 @@ def main():
         print("Continue with the rest of your day")
     
     print("Finally we are done")
-
-
-def cleanup():
-    os.removedirs(outFold)
 
 
 main()
