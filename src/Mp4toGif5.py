@@ -15,7 +15,6 @@ def check(a):  # Checks to see if it is Yes or No
     return "y" in a or "Y" in a
 
 
-
 def input_speed():
     print("I need to collect some data about our new file")
     print("If you need any help just enter define and I will print some help")
@@ -187,6 +186,7 @@ def main():
         print("Continue with the rest of your day")
     
     print("Finally we are done")
+
 
 def cleanup():
     os.removedirs(outFold)
