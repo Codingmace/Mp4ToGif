@@ -10,23 +10,10 @@ import numpy as np
 import moviepy.editor as mp
 import shutil
 
-import tinify 
-tinify.key = "6QP9ymBx7CRyw6sWB1HFyBQC7Q9Z2jGQ"  # Create API Key to compress images
-
-# Compressing the video using Tinify
-''' Check as may run into problems overriding a file '''
-
-
-def tinyComp(filepath):
-    source = tinify.from_file(filepath)
-    source.to_file(filepath)
-
 
 def check(a):  # Checks to see if it is Yes or No
     return "y" in a or "Y" in a
 
-
-''' Number of Frames in a second '''
 
 
 def input_speed():
@@ -84,10 +71,6 @@ def main():
         videoFiles.append(input("Enter in the file path:  "))
     for ovfn in videoFiles:
         ovfn = ovfn.strip("\"")  # Takes care of parentheses
-#        print("OVFN: " + ovfn)
-#        print(os.fspath(ovfn))
-#        print(os.path.realpath(ovfn))
-        # file_extension = os.path.splitext(ovfn)[1]
         filename, file_extension = os.path.splitext(ovfn)
         print(os.path.basename(filename))
         print(filename + " " + file_extension)
@@ -204,10 +187,6 @@ def main():
         print("Continue with the rest of your day")
     
     print("Finally we are done")
-
-    
-''' This May not work '''
-
 
 def cleanup():
     os.removedirs(outFold)
