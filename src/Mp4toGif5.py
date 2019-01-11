@@ -96,7 +96,8 @@ def main():
         print("Number of Frames: ", vidcap.get(CAP_PROP_FRAME_COUNT))
         print("Total Number of Frames: \n", totFrame)
         print("Now I know videos can be long and only want 2 min of a 10 min video")
-        capSec = totFrame / secTime
+#        capSec = totFrame / secTime
+        capSec = secLength
         print("Here is your chance. The video is " + str(capSec) + " seconds Long")
 #        clipped = input("Do you want to make it shorter?\nEnter 'Yes' or 'No': ")
         clipped = "No"
@@ -115,10 +116,10 @@ def main():
                 print("Now just let me enter your new shortened length")
                 capSec = newCapSec    
         con = 1  # Seconds Counter of the file
-        
         smoothRate = 1  # Smoothness of the file
         fileNumb = 0  # The File Number
         while(con < capSec):
+            print(str(capSec) + " "+ str(con))
             vidcap.set(cv2.CAP_PROP_POS_MSEC, (secTime * con))
             success, image = vidcap.read()
             if success:
