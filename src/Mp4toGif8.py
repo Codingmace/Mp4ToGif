@@ -1,14 +1,12 @@
 import os
 import shutil
-from cv2 import imwrite, CAP_PROP_FRAME_COUNT, CAP_PROP_POS_AVI_RATIO, \
-    CAP_PROP_POS_MSEC, CAP_PROP_FRAME_HEIGHT, CAP_PROP_FRAME_WIDTH
 import cv2
 import ffmpy
 import imageio
 import sys
 
 import moviepy.editor as mp
-import numpy as np
+#import numpy as np
 
 def check(a):  # Checks to see if it is Yes or No
     return "y" in a or "Y" in a
@@ -94,9 +92,9 @@ def main():
                 print("Video Length (Seconds): ", secLength)
                 print("Frame Rate: ", framerate)
                 print("Frame Count: ", framecount)
-                print("Frame Height: ", vidcap.get(CAP_PROP_FRAME_HEIGHT))
-                print("Frame Width: ", vidcap.get(CAP_PROP_FRAME_WIDTH))
-                print("Number of Frames: ", vidcap.get(CAP_PROP_FRAME_COUNT))
+                print("Frame Height: ", vidcap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                print("Frame Width: ", vidcap.get(cv2.CAP_PROP_FRAME_WIDTH))
+                print("Number of Frames: ", vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
                 print("Total Number of Frames: ", totFrame)
                 print("Now I know videos can be long and only want 2 min of a 10 min video")
                 capSec = secLength
@@ -130,7 +128,7 @@ def main():
                     vidcap.set(cv2.CAP_PROP_POS_MSEC, (secTime * con))
                     success, image = vidcap.read()
                     if success:
-                        cv2.imwrite(outFold + "/frame" + str(fileNumb) + ".jpg", image)  # Save frame as JPG
+                        cv2.cv2.imwrite(outFold + "/frame" + str(fileNumb) + ".jpg", image)  # Save frame as JPG
                     else:  # At the end of the file
                         break 
                     con += 1 / int(smoothRate)
@@ -172,7 +170,7 @@ def main():
                 
                 print("Destroying all the evidence. MWahhhahha")
                 cv2.destroyAllWindows()
-                
+#                clip.end()
                 print("WARNING: THIS IS GOING TO TAKE UP A LOT OF SPACE")
                 cleanRemove = input("Do you want to delete the folder of all the images.")
                 if check(cleanRemove):
@@ -197,10 +195,3 @@ def main():
 
 main()
 
-"""
-''' Other Ideas to add '''
-Creating an input for output folder
-Being able to do folders.
-Simplifying for more modules even though that isn't that bad.
-Make the software a little smaller
-"""
