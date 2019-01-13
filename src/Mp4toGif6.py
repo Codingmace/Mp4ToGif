@@ -1,14 +1,16 @@
 import datetime
 import os
+import shutil
 import sys
+
 from cv2 import imwrite, CAP_PROP_FRAME_COUNT, CAP_PROP_POS_AVI_RATIO, \
     CAP_PROP_POS_MSEC, CAP_PROP_FRAME_HEIGHT, CAP_PROP_FRAME_WIDTH
 import cv2
 import ffmpy
 import imageio
-import numpy as np
+
 import moviepy.editor as mp
-import shutil
+import numpy as np
 
 
 def check(a):  # Checks to see if it is Yes or No
