@@ -1,15 +1,18 @@
 import datetime
 import os
 import sys
+
 from cv2 import imwrite, CAP_PROP_FRAME_COUNT, CAP_PROP_POS_AVI_RATIO, \
     CAP_PROP_POS_MSEC, CAP_PROP_FRAME_HEIGHT, CAP_PROP_FRAME_WIDTH
 import cv2
 import ffmpy
 import imageio
-import numpy as np
-import moviepy.editor as mp
 
+import moviepy.editor as mp
+import numpy as np
 import tinify 
+
+
 tinify.key = "6QP9ymBx7CRyw6sWB1HFyBQC7Q9Z2jGQ" # Create API Key to compress images
 
 # Compressing the video using Tinify

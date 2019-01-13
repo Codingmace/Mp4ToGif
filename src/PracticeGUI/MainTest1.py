@@ -110,7 +110,9 @@ root.mainloop()
 
 
 import sys
+
 from PyQt5 import QtGui, QtCore
+
 
 class Window(QtGui.QMain):
 

@@ -1,6 +1,7 @@
 import datetime
 import os
 import sys
+
 from cv2 import imwrite, CAP_PROP_FRAME_COUNT, CAP_PROP_POS_AVI_RATIO, \
     CAP_PROP_POS_MSEC
 import cv2
@@ -9,6 +10,8 @@ import imageio
 
 import numpy as np
 import tinify 
+
+
 tinify.key = "6QP9ymBx7CRyw6sWB1HFyBQC7Q9Z2jGQ"
 
 ''' First version with all the code. RAW and it sucks ''' 

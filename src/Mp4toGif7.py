@@ -1,8 +1,6 @@
 import os
 import shutil
 
-# from cv2 import imwrite, CAP_PROP_FRAME_COUNT, CAP_PROP_POS_AVI_RATIO, \
-#    CAP_PROP_POS_MSEC, CAP_PROP_FRAME_HEIGHT, CAP_PROP_FRAME_WIDTH, VideoCapture
 import cv2
 import ffmpy
 import imageio
@@ -203,4 +201,5 @@ main()
 Creating an input for output folder
 Being able to do folders.
 Simplifying for more modules even though that isn't that bad.
+Make the software a little smaller
 """
