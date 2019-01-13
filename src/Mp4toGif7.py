@@ -1,6 +1,8 @@
 import os
 import shutil
 
+from cv2 import imwrite, CAP_PROP_FRAME_COUNT, CAP_PROP_POS_AVI_RATIO, \
+    CAP_PROP_POS_MSEC, CAP_PROP_FRAME_HEIGHT, CAP_PROP_FRAME_WIDTH
 import cv2
 import ffmpy
 import imageio
